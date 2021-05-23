@@ -1,0 +1,2192 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{CS4701\_Regional\_Climate\_Forecast\_with\_ANN\_final}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{CS4701: Regional Weather Forcast with
+ANN}\label{cs4701-regional-weather-forcast-with-ann}
+
+by Yifan Zhao(yz348) and Kristina Tian (yt523)
+
+    \subsection{Abstract}\label{abstract}
+
+    In this project, we are developing a weather forecasting tool that aims
+to predict key regional weather parameters based on historical data.
+Various Artificial Neural Network methods are used in comparison to
+extract trends and predict patterns of the regional weather sequences.
+Multiple data visualization and analysis techniques are employed to aid
+feature engineering, feature selection, and model selection processes.
+Validation and test methods are employed to evaluate and compare the
+performance of the tool.
+
+    \subsubsection{External Libraries}\label{external-libraries}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}485}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np} 
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd} 
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{from} \PY{n+nn}{netCDF4} \PY{k}{import} \PY{n}{Dataset}
+          \PY{k+kn}{import} \PY{n+nn}{xarray} \PY{k}{as} \PY{n+nn}{xr}
+          
+          \PY{c+c1}{\PYZsh{} for ML}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}\PY{p}{,} \PY{n}{MinMaxScaler}\PY{p}{,} \PY{n}{RobustScaler}\PY{p}{,} \PY{n}{PolynomialFeatures}
+          \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}
+          \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{LSTM}\PY{p}{,}\PY{n}{Dense} \PY{p}{,}\PY{n}{Dropout}\PY{p}{,} \PY{n}{Bidirectional}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{} for plotting}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+          \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{tsa}\PY{n+nn}{.}\PY{n+nn}{stattools} \PY{k}{import} \PY{n}{adfuller}
+          
+          \PY{k+kn}{import} \PY{n+nn}{warnings}
+          \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ignore}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{1. Data}\label{data}
+
+    \subsubsection{1.1 Basic data}\label{basic-data}
+
+    This is a data gateway for downloading customized GCMs (Global Climate
+Models)datasets, downsacled using MACA method (Multivariate Adaptive
+Constructed Analogs). This method enables us to retrive historical
+metrological datasets as far as 1950 and with a resolution up to 4km.
+*This gateway is currently not in use by this project, where we instead
+directly import MACA datasets about the Finger Lakes AVA.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{lat\PYZus{}target}\PY{o}{=}\PY{l+m+mf}{45.0}
+        \PY{n}{lon\PYZus{}target}\PY{o}{=}\PY{l+m+mi}{360}\PY{o}{\PYZhy{}}\PY{l+m+mf}{117.0}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{pathname} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://thredds.northwestknowledge.net:8080/thredds/dodsC/agg\PYZus{}macav2metdata\PYZus{}huss\PYZus{}BNU\PYZhy{}ESM\PYZus{}r1i1p1\PYZus{}historical\PYZus{}1950\PYZus{}2005\PYZus{}CONUS\PYZus{}daily.nc}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{filehandle}\PY{o}{=}\PY{n}{Dataset}\PY{p}{(}\PY{n}{pathname}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n+nb}{format}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NETCDF4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{lathandle}\PY{o}{=}\PY{n}{filehandle}\PY{o}{.}\PY{n}{variables}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{lonhandle}\PY{o}{=}\PY{n}{filehandle}\PY{o}{.}\PY{n}{variables}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{timehandle}\PY{o}{=}\PY{n}{filehandle}\PY{o}{.}\PY{n}{variables}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{datahandle}\PY{o}{=}\PY{n}{filehandle}\PY{o}{.}\PY{n}{variables}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{specific\PYZus{}humidity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{time\PYZus{}num}\PY{o}{=}\PY{l+m+mi}{365}
+        \PY{n}{timeindex}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{time\PYZus{}num}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{time}\PY{o}{=}\PY{n}{timehandle}\PY{p}{[}\PY{n}{timeindex}\PY{p}{]}
+        \PY{n}{lat} \PY{o}{=} \PY{n}{lathandle}\PY{p}{[}\PY{p}{:}\PY{p}{]}
+        \PY{n}{lon} \PY{o}{=} \PY{n}{lonhandle}\PY{p}{[}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}find indices of target lat/lon/day}
+        \PY{n}{lat\PYZus{}index} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{lat}\PY{o}{\PYZhy{}}\PY{n}{lat\PYZus{}target}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{argmin}\PY{p}{(}\PY{p}{)}
+        \PY{n}{lon\PYZus{}index} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{lon}\PY{o}{\PYZhy{}}\PY{n}{lon\PYZus{}target}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{argmin}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}check final is in right bounds}
+        \PY{k}{if}\PY{p}{(}\PY{n}{lat}\PY{p}{[}\PY{n}{lat\PYZus{}index}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{n}{lat\PYZus{}target}\PY{p}{)}\PY{p}{:}
+        	\PY{k}{if}\PY{p}{(}\PY{n}{lat\PYZus{}index}\PY{o}{!=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+        		\PY{n}{lat\PYZus{}index} \PY{o}{=} \PY{n}{lat\PYZus{}index} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+        \PY{k}{if}\PY{p}{(}\PY{n}{lat}\PY{p}{[}\PY{n}{lat\PYZus{}index}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{n}{lat\PYZus{}target}\PY{p}{)}\PY{p}{:}
+        	\PY{k}{if}\PY{p}{(}\PY{n}{lat\PYZus{}index}\PY{o}{!=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{lat}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+        		\PY{n}{lat\PYZus{}index} \PY{o}{=}\PY{n}{lat\PYZus{}index} \PY{o}{+}\PY{l+m+mi}{1}
+        \PY{k}{if}\PY{p}{(}\PY{n}{lon}\PY{p}{[}\PY{n}{lon\PYZus{}index}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{n}{lon\PYZus{}target}\PY{p}{)}\PY{p}{:}
+        	\PY{k}{if}\PY{p}{(}\PY{n}{lon\PYZus{}index}\PY{o}{!=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+        		\PY{n}{lon\PYZus{}index} \PY{o}{=} \PY{n}{lon\PYZus{}index} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+        \PY{k}{if}\PY{p}{(}\PY{n}{lon}\PY{p}{[}\PY{n}{lon\PYZus{}index}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{n}{lon\PYZus{}target}\PY{p}{)}\PY{p}{:}
+        	\PY{k}{if}\PY{p}{(}\PY{n}{lon\PYZus{}index}\PY{o}{!=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{lon}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+        		\PY{n}{lon\PYZus{}index} \PY{o}{=} \PY{n}{lon\PYZus{}index} \PY{o}{+} \PY{l+m+mi}{1}
+        \PY{n}{lat}\PY{o}{=}\PY{n}{lat}\PY{p}{[}\PY{n}{lat\PYZus{}index}\PY{p}{]}
+        \PY{n}{lon}\PY{o}{=}\PY{n}{lon}\PY{p}{[}\PY{n}{lon\PYZus{}index}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{data} \PY{o}{=} \PY{n}{datahandle}\PY{p}{[}\PY{n}{timeindex}\PY{p}{,}\PY{n}{lat\PYZus{}index}\PY{p}{,}\PY{n}{lon\PYZus{}index}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{days} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{time}\PY{p}{)}\PY{p}{)}
+        \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day of Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Specific Humidity(kg/kg)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1950 Daily Specific Humidity(BNU\PYZhy{}ESM) ,}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+se}{\PYZbs{}u00b0}\PY{l+s+s1}{N, }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+se}{\PYZbs{}u00b0}\PY{l+s+s1}{W}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{lat}\PY{p}{,} \PY{n+nb}{abs}\PY{p}{(}\PY{l+m+mi}{360}\PY{o}{\PYZhy{}}\PY{n}{lon}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{ticklabel\PYZus{}format}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{plain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{days}\PY{p}{,}\PY{n}{data}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{myPythonGraph.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{1.2 Import Data}\label{import-data}
+
+    Import MACA datasets about the Finger Lakes AVA regional GCMs.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Fucntion for reading datasets}
+        \PY{k}{def} \PY{n+nf}{read\PYZus{}file}\PY{p}{(}\PY{n}{file}\PY{p}{)}\PY{p}{:}
+            \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unicode\PYZus{}escape}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{k}{return} \PY{n}{df}
+        
+        \PY{c+c1}{\PYZsh{} Encode date to the number of days from 1/1/2020}
+        \PY{k}{def} \PY{n+nf}{encode\PYZus{}date}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{rsub}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Timestamp}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2006/1/1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{days}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}489}]:} \PY{k+kn}{from} \PY{n+nn}{google}\PY{n+nn}{.}\PY{n+nn}{colab} \PY{k}{import} \PY{n}{drive}
+          \PY{k+kn}{import} \PY{n+nn}{os}
+          \PY{n}{drive}\PY{o}{.}\PY{n}{mount}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{force\PYZus{}remount}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n}{path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{drive}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{My Drive}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Regional\PYZhy{}Climate\PYZhy{}Forecast\PYZhy{}with\PYZhy{}ANN}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df\PYZus{}his\PYZus{}daily} \PY{o}{=} \PY{n}{read\PYZus{}file}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MACA\PYZus{}41.9795 Latitude, \PYZhy{}76.9813 Longitude\PYZus{}2006\PYZhy{}2019.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{df\PYZus{}cur\PYZus{}daily} \PY{o}{=} \PY{n}{read\PYZus{}file}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{path}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MACA\PYZus{}41.9795 Latitude, \PYZhy{}76.9813 Longitude\PYZus{}2019\PYZhy{}2020.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{df\PYZus{}future\PYZus{}daily} \PY{o}{=} \PY{n}{read\PYZus{}file}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{path}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MACA\PYZus{}41.9795 Latitude, \PYZhy{}76.9813 Longitude\PYZus{}2020\PYZhy{}2021.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{df\PYZus{}his\PYZus{}daily}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{encode\PYZus{}date}\PY{p}{(}\PY{n}{df\PYZus{}his\PYZus{}daily}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}478}]:} \PY{c+c1}{\PYZsh{}Without Google Colab}
+          \PY{n}{df\PYZus{}his\PYZus{}daily} \PY{o}{=} \PY{n}{read\PYZus{}file}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MACA\PYZus{}41.9795 Latitude, \PYZhy{}76.9813 Longitude\PYZus{}2006\PYZhy{}2019.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{df\PYZus{}cur\PYZus{}daily} \PY{o}{=} \PY{n}{read\PYZus{}file}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MACA\PYZus{}41.9795 Latitude, \PYZhy{}76.9813 Longitude\PYZus{}2019\PYZhy{}2020.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{df\PYZus{}future\PYZus{}daily} \PY{o}{=} \PY{n}{read\PYZus{}file}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MACA\PYZus{}41.9795 Latitude, \PYZhy{}76.9813 Longitude\PYZus{}2020\PYZhy{}2021.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} df\PYZus{}his\PYZus{}daily[\PYZsq{}date\PYZsq{}] = encode\PYZus{}date(df\PYZus{}his\PYZus{}daily)}
+\end{Verbatim}
+
+
+    \subsection{2. Feature Engineering}\label{feature-engineering}
+
+    In this section, we analyze and visualize different features of the data
+to get a sense of what we are working with. These visualization show the
+distinct patterns of different features in the training set from 2006 to
+2019. It also shows where anomalies are present, which will be addressed
+during normalization.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}482}]:} \PY{c+c1}{\PYZsh{} Intially extract features}
+          \PY{n}{his\PYZus{}pcp} \PY{o}{=} \PY{n}{df\PYZus{}his\PYZus{}daily}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Precipitation(mm)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{his\PYZus{}max\PYZus{}temp} \PY{o}{=} \PY{n}{df\PYZus{}his\PYZus{}daily}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Daily Maximum Near\PYZhy{}Surface Air Temperature(K)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{cur\PYZus{}pcp} \PY{o}{=} \PY{n}{df\PYZus{}cur\PYZus{}daily}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Precipitation(mm)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{cur\PYZus{}max\PYZus{}temp} \PY{o}{=} \PY{n}{df\PYZus{}cur\PYZus{}daily}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Daily Maximum Near\PYZhy{}Surface Air Temperature(K)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{future\PYZus{}pcp} \PY{o}{=} \PY{n}{df\PYZus{}future\PYZus{}daily}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Precipitation(mm)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{future\PYZus{}max\PYZus{}temp} \PY{o}{=} \PY{n}{df\PYZus{}future\PYZus{}daily}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Daily Maximum Near\PYZhy{}Surface Air Temperature(K)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} Cut off the last year}
+          \PY{n}{his\PYZus{}pcp} \PY{o}{=} \PY{n}{his\PYZus{}pcp}\PY{p}{[}\PY{l+m+mi}{4748}\PY{p}{:}\PY{p}{]}
+          \PY{n}{his\PYZus{}max\PYZus{}temp} \PY{o}{=} \PY{n}{his\PYZus{}max\PYZus{}temp}\PY{p}{[}\PY{l+m+mi}{4748}\PY{p}{:}\PY{p}{]}
+          \PY{n}{cur\PYZus{}pcp} \PY{o}{=} \PY{n}{cur\PYZus{}pcp}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{365}\PY{p}{]}
+          \PY{n}{cur\PYZus{}max\PYZus{}temp} \PY{o}{=} \PY{n}{cur\PYZus{}max\PYZus{}temp}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{365}\PY{p}{]}
+          \PY{n}{future\PYZus{}pcp} \PY{o}{=} \PY{n}{future\PYZus{}pcp}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{365}\PY{p}{]}
+          \PY{n}{future\PYZus{}max\PYZus{}temp} \PY{o}{=} \PY{n}{future\PYZus{}max\PYZus{}temp}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{365}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}311}]:} \PY{c+c1}{\PYZsh{} functions for visualizing numerical data distributions}
+          \PY{k}{def} \PY{n+nf}{check\PYZus{}distribution\PYZus{}conti}\PY{p}{(}\PY{n}{dtf}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+              \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}  \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+              \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} distribution}
+              \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{title}\PY{o}{.}\PY{n}{set\PYZus{}text}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{distribution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{variable} \PY{o}{=} \PY{n}{dtf}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{dtf}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+              \PY{n}{breaks} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{quantile}\PY{p}{(}\PY{n}{variable}\PY{p}{,} \PY{n}{q}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{)}\PY{p}{)}
+              \PY{n}{variable} \PY{o}{=} \PY{n}{variable}\PY{p}{[} \PY{p}{(}\PY{n}{variable} \PY{o}{\PYZgt{}} \PY{n}{breaks}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{variable} \PY{o}{\PYZlt{}} 
+                                  \PY{n}{breaks}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)} \PY{p}{]}
+              \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{variable}\PY{p}{,} \PY{n}{hist}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{kde}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{kde\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{shade}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+              \PY{n}{des} \PY{o}{=} \PY{n}{dtf}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+              \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{des}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{25}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{des}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{des}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{75}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+              \PY{n}{des} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{des}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+              \PY{n}{box} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{des}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{25}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{des}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{25}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{des}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{75}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{des}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{75}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{des}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mf}{0.95}\PY{p}{,} \PY{l+m+mf}{0.95}\PY{p}{,} \PY{n}{box}\PY{p}{,} \PY{n}{transform}\PY{o}{=}\PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{transAxes}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{va}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{top}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{bbox}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{boxstyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{round}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} boxplot }
+              \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{title}\PY{o}{.}\PY{n}{set\PYZus{}text}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outliers (log scale)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{tmp\PYZus{}dtf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{dtf}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{)}
+              \PY{n}{tmp\PYZus{}dtf}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{tmp\PYZus{}dtf}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{)}
+              \PY{n}{tmp\PYZus{}dtf}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{column}\PY{o}{=}\PY{n}{x}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} functions for visualizing bivariant distribution between a categorical feature and a numerical feature}
+          \PY{k}{def} \PY{n+nf}{check\PYZus{}bivariant\PYZus{}cat}\PY{p}{(}\PY{n}{dtf}\PY{p}{,} \PY{n}{cat}\PY{p}{,} \PY{n}{num}\PY{p}{)}\PY{p}{:}
+              \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}  \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+              \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{n}{cat}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   vs   }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{num}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+          
+              \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} distribution}
+              \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{title}\PY{o}{.}\PY{n}{set\PYZus{}text}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{density}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{dtf}\PY{p}{[}\PY{n}{cat}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{dtf}\PY{p}{[}\PY{n}{dtf}\PY{p}{[}\PY{n}{cat}\PY{p}{]}\PY{o}{==}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{num}\PY{p}{]}\PY{p}{,} \PY{n}{hist}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{i}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+              \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} stacked}
+              \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{title}\PY{o}{.}\PY{n}{set\PYZus{}text}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{breaks} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{quantile}\PY{p}{(}\PY{n}{dtf}\PY{p}{[}\PY{n}{num}\PY{p}{]}\PY{p}{,} \PY{n}{q}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{)}\PY{p}{)}
+              \PY{n}{tmp} \PY{o}{=} \PY{n}{dtf}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{n}{cat}\PY{p}{,} \PY{n}{pd}\PY{o}{.}\PY{n}{cut}\PY{p}{(}\PY{n}{dtf}\PY{p}{[}\PY{n}{num}\PY{p}{]}\PY{p}{,} \PY{n}{breaks}\PY{p}{,} \PY{n}{duplicates}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{drop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+              \PY{n}{tmp} \PY{o}{=} \PY{n}{tmp}\PY{p}{[}\PY{n}{dtf}\PY{p}{[}\PY{n}{cat}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+              \PY{n}{tmp}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tot}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{tmp}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{tmp}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tot}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+                   \PY{n}{tmp}\PY{p}{[}\PY{n}{col}\PY{p}{]} \PY{o}{=} \PY{n}{tmp}\PY{p}{[}\PY{n}{col}\PY{p}{]} \PY{o}{/} \PY{n}{tmp}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tot}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+              \PY{n}{tmp}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tot}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{stacked}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{grid}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} boxplot   }
+              \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{title}\PY{o}{.}\PY{n}{set\PYZus{}text}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outliers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{sns}\PY{o}{.}\PY{n}{catplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{cat}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{num}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{dtf}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{box}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+              \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}471}]:} \PY{n}{titles} \PY{o}{=} \PY{p}{[}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Daily Minimum Near\PYZhy{}Surface Air Temperature(K)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Daily Maximum Near\PYZhy{}Surface Air Temperature(K)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Daily Mean Near\PYZhy{}Surface Specific Humidity(kgkg\PYZhy{}1)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{vpd(kPa)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precipitation(mm)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+          \PY{p}{]}
+          
+          \PY{n}{feature\PYZus{}keys} \PY{o}{=} \PY{p}{[}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Daily Minimum Near\PYZhy{}Surface Air Temperature(K)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Daily Maximum Near\PYZhy{}Surface Air Temperature(K)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Daily Mean Near\PYZhy{}Surface Specific Humidity(kgkg\PYZhy{}1)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{vpd(kPa)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precipitation(mm)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+          \PY{p}{]}
+          
+          \PY{n}{colors} \PY{o}{=} \PY{p}{[}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{orange}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{green}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{purple}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+          \PY{p}{]}
+          
+          
+          \PY{c+c1}{\PYZsh{} Function for visualizing data distribution}
+          \PY{k}{def} \PY{n+nf}{show\PYZus{}raw\PYZus{}visualization}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
+              \PY{n}{time\PYZus{}data} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+              \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}
+                  \PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{80}\PY{p}{,} \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{w}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{k}\PY{l+s+s2}{\PYZdq{}}
+              \PY{p}{)}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{feature\PYZus{}keys}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{key} \PY{o}{=} \PY{n}{feature\PYZus{}keys}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                  \PY{n}{c} \PY{o}{=} \PY{n}{colors}\PY{p}{[}\PY{n}{i} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{colors}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+                  \PY{n}{t\PYZus{}data} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{key}\PY{p}{]}
+                  \PY{n}{t\PYZus{}data}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{time\PYZus{}data}
+                  \PY{n}{t\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+                  \PY{n}{ax} \PY{o}{=} \PY{n}{t\PYZus{}data}\PY{o}{.}\PY{n}{plot}\PY{p}{(}
+                      \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{n}{i} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+                      \PY{n}{color}\PY{o}{=}\PY{n}{c}\PY{p}{,}
+                      \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ \PYZhy{} }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{titles}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{key}\PY{p}{)}\PY{p}{,}
+                      \PY{n}{rot}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{,}
+                  \PY{p}{)}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{n}{titles}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Function for visualizing correlation heatmap}
+          \PY{k}{def} \PY{n+nf}{show\PYZus{}heatmap}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{matshow}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{columns}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{tick\PYZus{}bottom}\PY{p}{(}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{columns}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+          
+              \PY{n}{cb} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+              \PY{n}{cb}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{labelsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Feature Correlation Heatmap}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}481}]:} \PY{n}{check\PYZus{}distribution\PYZus{}conti}\PY{p}{(}\PY{n}{df\PYZus{}his\PYZus{}daily}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Daily Minimum Near\PYZhy{}Surface Air Temperature(K)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{check\PYZus{}distribution\PYZus{}conti}\PY{p}{(}\PY{n}{df\PYZus{}his\PYZus{}daily}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Daily Maximum Near\PYZhy{}Surface Air Temperature(K)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{check\PYZus{}distribution\PYZus{}conti}\PY{p}{(}\PY{n}{df\PYZus{}his\PYZus{}daily}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Daily Mean Near\PYZhy{}Surface Specific Humidity(kgkg\PYZhy{}1)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{check\PYZus{}distribution\PYZus{}conti}\PY{p}{(}\PY{n}{df\PYZus{}his\PYZus{}daily}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vpd(kPa)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{check\PYZus{}distribution\PYZus{}conti}\PY{p}{(}\PY{n}{df\PYZus{}his\PYZus{}daily}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Precipitation(mm)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}469}]:} \PY{n}{show\PYZus{}raw\PYZus{}visualization}\PY{p}{(}\PY{n}{df\PYZus{}his\PYZus{}daily}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}480}]:} \PY{n}{show\PYZus{}heatmap}\PY{p}{(}\PY{n}{df\PYZus{}his\PYZus{}daily}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}486}]:} \PY{c+c1}{\PYZsh{} Check if the timeseries in the data is staionary}
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{211}\PY{p}{)}
+          \PY{n}{fig} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{graphics}\PY{o}{.}\PY{n}{tsa}\PY{o}{.}\PY{n}{plot\PYZus{}acf}\PY{p}{(}\PY{n}{df\PYZus{}his\PYZus{}daily}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Daily Maximum Near\PYZhy{}Surface Air Temperature(K)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax1}\PY{p}{,}\PY{n}{color} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{firebrick}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax2} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{212}\PY{p}{)}
+          \PY{n}{fig} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{graphics}\PY{o}{.}\PY{n}{tsa}\PY{o}{.}\PY{n}{plot\PYZus{}pacf}\PY{p}{(}\PY{n}{df\PYZus{}his\PYZus{}daily}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Daily Maximum Near\PYZhy{}Surface Air Temperature(K)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax2}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{firebrick}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}488}]:} \PY{c+c1}{\PYZsh{} Perform AD Fuller Test on the data to test if the timeseries is stationary}
+          \PY{n}{result} \PY{o}{=} \PY{n}{adfuller}\PY{p}{(}\PY{n}{df\PYZus{}his\PYZus{}daily}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Daily Maximum Near\PYZhy{}Surface Air Temperature(K)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ADF Statistic on the entire dataset: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{result}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p\PYZhy{}value: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{result}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Critical Values:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{k}{for} \PY{n}{key}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} \PY{n}{result}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{key}\PY{p}{,} \PY{n}{value}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ADF Statistic on the entire dataset: -4.471451655114319
+p-value: 0.0002213634266702279
+Critical Values:
+	1\%: -3.4316328616522527
+	5\%: -2.862106888575586
+	10\%: -2.5670717550557476
+
+    \end{Verbatim}
+
+    \subsection{3.Train RNN for Predicting
+Tempreture}\label{train-rnn-for-predicting-tempreture}
+
+    In this section, we train and evaluate a Pytorch RNN model in predicting
+Daily Maximum Near-Surface Air Temperature(K)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}332}]:} \PY{k+kn}{import} \PY{n+nn}{torch}
+          \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{nn} \PY{k}{as} \PY{n+nn}{nn}
+\end{Verbatim}
+
+
+    \subsubsection{3.1 Data preprocessing}\label{data-preprocessing}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}443}]:} \PY{c+c1}{\PYZsh{} Data normalization}
+          \PY{n}{sc} \PY{o}{=} \PY{n}{MinMaxScaler}\PY{p}{(}\PY{n}{feature\PYZus{}range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}444}]:} \PY{n}{train\PYZus{}dataset} \PY{o}{=} \PY{n}{his\PYZus{}max\PYZus{}temp}
+          \PY{n}{testdataset} \PY{o}{=} \PY{n}{cur\PYZus{}max\PYZus{}temp}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}445}]:} \PY{n}{train\PYZus{}dataset} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{train\PYZus{}dataset}\PY{p}{)}
+          \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{n\PYZus{}future} \PY{o}{=} \PY{l+m+mi}{1} 
+          \PY{n}{n\PYZus{}past} \PY{o}{=} \PY{l+m+mi}{30} \PY{c+c1}{\PYZsh{} Past 30 days }
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}dataset}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{n\PYZus{}past}\PY{o}{\PYZhy{}}\PY{n}{n\PYZus{}future}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+              \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}dataset}\PY{p}{[}\PY{n}{i} \PY{p}{:} \PY{n}{i} \PY{o}{+} \PY{n}{n\PYZus{}past} \PY{p}{]}\PY{p}{)}     
+              \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}dataset}\PY{p}{[}\PY{n}{i} \PY{o}{+} \PY{n}{n\PYZus{}past} \PY{p}{:} \PY{n}{i} \PY{o}{+} \PY{n}{n\PYZus{}past} \PY{o}{+} \PY{n}{n\PYZus{}future} \PY{p}{]}\PY{p}{)}
+          \PY{n}{x\PYZus{}train} \PY{p}{,} \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}446}]:} \PY{c+c1}{\PYZsh{} Preprocessing test data}
+          \PY{n}{testdataset} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{testdataset}\PY{p}{)}
+          \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{n\PYZus{}future} \PY{o}{=} \PY{l+m+mi}{1}
+          \PY{n}{n\PYZus{}past} \PY{o}{=} \PY{l+m+mi}{30}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{testdataset}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{n\PYZus{}past}\PY{o}{\PYZhy{}}\PY{n}{n\PYZus{}future}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+              \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{testdataset}\PY{p}{[}\PY{n}{i} \PY{p}{:} \PY{n}{i} \PY{o}{+} \PY{n}{n\PYZus{}past}\PY{p}{]}\PY{p}{)}     
+              \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{testdataset}\PY{p}{[}\PY{n}{i} \PY{o}{+} \PY{n}{n\PYZus{}past} \PY{p}{:} \PY{n}{i} \PY{o}{+} \PY{n}{n\PYZus{}past} \PY{o}{+} \PY{n}{n\PYZus{}future}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{x\PYZus{}test} \PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}
+          \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{p}{(}\PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{p}{,} \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}447}]:} \PY{n}{x\PYZus{}test\PYZus{}tensor} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+          \PY{n}{y\PYZus{}test\PYZus{}tensor} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}
+          \PY{n}{x\PYZus{}train\PYZus{}tensor} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}
+          \PY{n}{y\PYZus{}train\PYZus{}tensor} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}429}]:} \PY{n}{x\PYZus{}train\PYZus{}tensor}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}429}]:} torch.Size([335, 30, 1])
+\end{Verbatim}
+            
+    \subsubsection{3.2 Train model}\label{train-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}430}]:} \PY{k}{class} \PY{n+nc}{RNN}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+          	\PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{input\PYZus{}dim}\PY{p}{,} \PY{n}{hidden\PYZus{}dim}\PY{p}{,} \PY{n}{layer\PYZus{}dim}\PY{p}{,} \PY{n}{output\PYZus{}dim}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} Add relevant parameters}
+          		\PY{n+nb}{super}\PY{p}{(}\PY{n}{RNN}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+          		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{input\PYZus{}dim} \PY{o}{=} \PY{n}{input\PYZus{}dim}
+          		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hidden\PYZus{}dim} \PY{o}{=} \PY{n}{hidden\PYZus{}dim}
+          		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layer\PYZus{}dim} \PY{o}{=} \PY{n}{layer\PYZus{}dim}
+          		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output\PYZus{}dim} \PY{o}{=} \PY{n}{output\PYZus{}dim}
+          		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{rnn} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{RNN}\PY{p}{(}\PY{n}{input\PYZus{}dim}\PY{p}{,} \PY{n}{hidden\PYZus{}dim}\PY{p}{,} \PY{n}{layer\PYZus{}dim}\PY{p}{,} \PY{n}{batch\PYZus{}first}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{nonlinearity}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{lastlayer} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{n}{hidden\PYZus{}dim}\PY{p}{,} \PY{n}{output\PYZus{}dim}\PY{p}{)}
+          		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{softmax} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{LogSoftmax}\PY{p}{(}\PY{n}{dim}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{loss} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{MSELoss}\PY{p}{(}\PY{p}{)}
+          
+          	\PY{k}{def} \PY{n+nf}{compute\PYZus{}Loss}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{predicted\PYZus{}vector}\PY{p}{,} \PY{n}{gold\PYZus{}label}\PY{p}{)}\PY{p}{:}
+          		\PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{loss}\PY{p}{(}\PY{n}{predicted\PYZus{}vector}\PY{o}{.}\PY{n}{float}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{gold\PYZus{}label}\PY{o}{.}\PY{n}{float}\PY{p}{(}\PY{p}{)}\PY{p}{)}	
+          
+          	\PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{inputs}\PY{p}{)}\PY{p}{:}
+          		\PY{n}{output}\PY{p}{,} \PY{n}{final\PYZus{}hidden} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{rnn}\PY{p}{(}\PY{n}{inputs}\PY{p}{)}
+          		\PY{n}{final\PYZus{}output} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{lastlayer}\PY{p}{(}\PY{n}{output}\PY{p}{)}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}    
+          		\PY{n}{predicted\PYZus{}vector} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{n}{final\PYZus{}output}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+          		\PY{k}{return} \PY{n}{predicted\PYZus{}vector}
+          
+          	\PY{k}{def} \PY{n+nf}{load\PYZus{}model}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{save\PYZus{}path}\PY{p}{)}\PY{p}{:}
+          		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{load\PYZus{}state\PYZus{}dict}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{save\PYZus{}path}\PY{p}{)}\PY{p}{)}
+          	
+          	\PY{k}{def} \PY{n+nf}{save\PYZus{}model}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{save\PYZus{}path}\PY{p}{)}\PY{p}{:}
+          		\PY{n}{torch}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{state\PYZus{}dict}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{save\PYZus{}path}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}431}]:} \PY{n}{model} \PY{o}{=} \PY{n}{RNN}\PY{p}{(}\PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{output\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{hidden\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{layer\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{n\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{1000}
+          \PY{n}{lr}\PY{o}{=}\PY{l+m+mf}{0.1}
+          \PY{n}{criterion} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{MSELoss}\PY{p}{(}\PY{p}{)}
+          \PY{n}{optimizer} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{optim}\PY{o}{.}\PY{n}{Adam}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{lr}\PY{o}{=}\PY{n}{lr}\PY{p}{)}
+          \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n\PYZus{}epochs} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+              \PY{n}{optimizer}\PY{o}{.}\PY{n}{zero\PYZus{}grad}\PY{p}{(}\PY{p}{)} 
+              \PY{n}{output} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{x\PYZus{}train\PYZus{}tensor}\PY{p}{)}
+              \PY{n}{y\PYZus{}train\PYZus{}tensor} \PY{o}{=} \PY{n}{y\PYZus{}train\PYZus{}tensor}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}  
+              \PY{n}{loss} \PY{o}{=} \PY{n}{criterion}\PY{p}{(}\PY{n}{output}\PY{o}{.}\PY{n}{float}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}tensor}\PY{o}{.}\PY{n}{float}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+              \PY{n}{loss}\PY{o}{.}\PY{n}{backward}\PY{p}{(}\PY{p}{)} 
+              \PY{n}{optimizer}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{p}{)}
+              
+              \PY{k}{if} \PY{n}{epoch}\PY{o}{\PYZpc{}}\PY{k}{10} == 0:
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epoch: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{/}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.............}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{epoch}\PY{p}{,} \PY{n}{n\PYZus{}epochs}\PY{p}{)}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Loss: }\PY{l+s+si}{\PYZob{}:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{loss}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch: 10/1000{\ldots} Loss: 0.1007
+Epoch: 20/1000{\ldots} Loss: 0.0585
+Epoch: 30/1000{\ldots} Loss: 0.0398
+Epoch: 40/1000{\ldots} Loss: 0.0337
+Epoch: 50/1000{\ldots} Loss: 0.0298
+Epoch: 60/1000{\ldots} Loss: 0.0281
+Epoch: 70/1000{\ldots} Loss: 0.0279
+Epoch: 80/1000{\ldots} Loss: 0.0277
+Epoch: 90/1000{\ldots} Loss: 0.0276
+Epoch: 100/1000{\ldots} Loss: 0.0276
+Epoch: 110/1000{\ldots} Loss: 0.0276
+Epoch: 120/1000{\ldots} Loss: 0.0276
+Epoch: 130/1000{\ldots} Loss: 0.0276
+Epoch: 140/1000{\ldots} Loss: 0.0276
+Epoch: 150/1000{\ldots} Loss: 0.0276
+Epoch: 160/1000{\ldots} Loss: 0.0276
+Epoch: 170/1000{\ldots} Loss: 0.0276
+Epoch: 180/1000{\ldots} Loss: 0.0276
+Epoch: 190/1000{\ldots} Loss: 0.0276
+Epoch: 200/1000{\ldots} Loss: 0.0276
+Epoch: 210/1000{\ldots} Loss: 0.0276
+Epoch: 220/1000{\ldots} Loss: 0.0276
+Epoch: 230/1000{\ldots} Loss: 0.0276
+Epoch: 240/1000{\ldots} Loss: 0.0276
+Epoch: 250/1000{\ldots} Loss: 0.0276
+Epoch: 260/1000{\ldots} Loss: 0.0276
+Epoch: 270/1000{\ldots} Loss: 0.0276
+Epoch: 280/1000{\ldots} Loss: 0.0276
+Epoch: 290/1000{\ldots} Loss: 0.0276
+Epoch: 300/1000{\ldots} Loss: 0.0276
+Epoch: 310/1000{\ldots} Loss: 0.0276
+Epoch: 320/1000{\ldots} Loss: 0.0276
+Epoch: 330/1000{\ldots} Loss: 0.0276
+Epoch: 340/1000{\ldots} Loss: 0.0276
+Epoch: 350/1000{\ldots} Loss: 0.0276
+Epoch: 360/1000{\ldots} Loss: 0.0276
+Epoch: 370/1000{\ldots} Loss: 0.0276
+Epoch: 380/1000{\ldots} Loss: 0.0276
+Epoch: 390/1000{\ldots} Loss: 0.0276
+Epoch: 400/1000{\ldots} Loss: 0.0276
+Epoch: 410/1000{\ldots} Loss: 0.0276
+Epoch: 420/1000{\ldots} Loss: 0.0276
+Epoch: 430/1000{\ldots} Loss: 0.0276
+Epoch: 440/1000{\ldots} Loss: 0.0276
+Epoch: 450/1000{\ldots} Loss: 0.0276
+Epoch: 460/1000{\ldots} Loss: 0.0276
+Epoch: 470/1000{\ldots} Loss: 0.0276
+Epoch: 480/1000{\ldots} Loss: 0.0276
+Epoch: 490/1000{\ldots} Loss: 0.0276
+Epoch: 500/1000{\ldots} Loss: 0.0276
+Epoch: 510/1000{\ldots} Loss: 0.0276
+Epoch: 520/1000{\ldots} Loss: 0.0276
+Epoch: 530/1000{\ldots} Loss: 0.0276
+Epoch: 540/1000{\ldots} Loss: 0.0276
+Epoch: 550/1000{\ldots} Loss: 0.0276
+Epoch: 560/1000{\ldots} Loss: 0.0276
+Epoch: 570/1000{\ldots} Loss: 0.0276
+Epoch: 580/1000{\ldots} Loss: 0.0276
+Epoch: 590/1000{\ldots} Loss: 0.0276
+Epoch: 600/1000{\ldots} Loss: 0.0276
+Epoch: 610/1000{\ldots} Loss: 0.0276
+Epoch: 620/1000{\ldots} Loss: 0.0276
+Epoch: 630/1000{\ldots} Loss: 0.0276
+Epoch: 640/1000{\ldots} Loss: 0.0276
+Epoch: 650/1000{\ldots} Loss: 0.0276
+Epoch: 660/1000{\ldots} Loss: 0.0276
+Epoch: 670/1000{\ldots} Loss: 0.0276
+Epoch: 680/1000{\ldots} Loss: 0.0276
+Epoch: 690/1000{\ldots} Loss: 0.0276
+Epoch: 700/1000{\ldots} Loss: 0.0276
+Epoch: 710/1000{\ldots} Loss: 0.0276
+Epoch: 720/1000{\ldots} Loss: 0.0276
+Epoch: 730/1000{\ldots} Loss: 0.0276
+Epoch: 740/1000{\ldots} Loss: 0.0276
+Epoch: 750/1000{\ldots} Loss: 0.0276
+Epoch: 760/1000{\ldots} Loss: 0.0276
+Epoch: 770/1000{\ldots} Loss: 0.0276
+Epoch: 780/1000{\ldots} Loss: 0.0276
+Epoch: 790/1000{\ldots} Loss: 0.0276
+Epoch: 800/1000{\ldots} Loss: 0.0276
+Epoch: 810/1000{\ldots} Loss: 0.0276
+Epoch: 820/1000{\ldots} Loss: 0.0276
+Epoch: 830/1000{\ldots} Loss: 0.0276
+Epoch: 840/1000{\ldots} Loss: 0.0276
+Epoch: 850/1000{\ldots} Loss: 0.0276
+Epoch: 860/1000{\ldots} Loss: 0.0276
+Epoch: 870/1000{\ldots} Loss: 0.0276
+Epoch: 880/1000{\ldots} Loss: 0.0276
+Epoch: 890/1000{\ldots} Loss: 0.0276
+Epoch: 900/1000{\ldots} Loss: 0.0276
+Epoch: 910/1000{\ldots} Loss: 0.0276
+Epoch: 920/1000{\ldots} Loss: 0.0276
+Epoch: 930/1000{\ldots} Loss: 0.0276
+Epoch: 940/1000{\ldots} Loss: 0.0276
+Epoch: 950/1000{\ldots} Loss: 0.0276
+Epoch: 960/1000{\ldots} Loss: 0.0276
+Epoch: 970/1000{\ldots} Loss: 0.0276
+Epoch: 980/1000{\ldots} Loss: 0.0276
+Epoch: 990/1000{\ldots} Loss: 0.0276
+Epoch: 1000/1000{\ldots} Loss: 0.0276
+
+    \end{Verbatim}
+
+    \subsubsection{3.3 Test and Evaluation}\label{test-and-evaluation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}452}]:} \PY{n}{pred} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{x\PYZus{}test\PYZus{}tensor}\PY{p}{)}
+          \PY{n}{pred} \PY{o}{=} \PY{n}{pred}\PY{o}{.}\PY{n}{cpu}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{detach}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}
+          \PY{n}{pred} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{inverse\PYZus{}transform}\PY{p}{(}\PY{n}{pred}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+          \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{inverse\PYZus{}transform}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}
+          \PY{n}{mse} \PY{o}{=} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{pred}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE for Tempreture Prediction using RNN: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mse}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{true}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{pred}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pred}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tempreture(K)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day of the year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RNN prediction on 2019\PYZhy{}2020 Data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MSE for Tempreture Prediction using RNN:  54.48186965591475
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{4. Train LSTM for Predicting
+Tempreture}\label{train-lstm-for-predicting-tempreture}
+
+    In this section, we train and evaluate a LSTM RNN model in predicting
+Daily Maximum Near-Surface Air Temperature(K)
+
+    \subsubsection{4.1 Data preprocessing}\label{data-preprocessing}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}233}]:} \PY{c+c1}{\PYZsh{} Data normalization}
+          \PY{n}{sc} \PY{o}{=} \PY{n}{MinMaxScaler}\PY{p}{(}\PY{n}{feature\PYZus{}range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}234}]:} \PY{c+c1}{\PYZsh{} Preprocessing train data}
+          \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{n\PYZus{}future} \PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{} 1 future day}
+          \PY{n}{n\PYZus{}past} \PY{o}{=} \PY{l+m+mi}{30} \PY{c+c1}{\PYZsh{} 30 past days }
+          \PY{n}{training\PYZus{}set} \PY{o}{=} \PY{n}{his\PYZus{}max\PYZus{}temp}
+          \PY{n}{training\PYZus{}set} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{training\PYZus{}set}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{training\PYZus{}set}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{n\PYZus{}past}\PY{o}{\PYZhy{}}\PY{n}{n\PYZus{}future}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+              \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{training\PYZus{}set}\PY{p}{[}\PY{n}{i} \PY{p}{:} \PY{n}{i} \PY{o}{+} \PY{n}{n\PYZus{}past}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}     
+              \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{training\PYZus{}set}\PY{p}{[}\PY{n}{i} \PY{o}{+} \PY{n}{n\PYZus{}past} \PY{p}{:} \PY{n}{i} \PY{o}{+} \PY{n}{n\PYZus{}past} \PY{o}{+} \PY{n}{n\PYZus{}future}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{x\PYZus{}train} \PY{p}{,} \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{p}{(}\PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{p}{,} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{4.2 Train Model}\label{train-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}236}]:} \PY{c+c1}{\PYZsh{} Train LSTM model}
+          \PY{n}{regressor} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+          \PY{n}{regressor}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Bidirectional}\PY{p}{(}\PY{n}{LSTM}\PY{p}{(}\PY{n}{units}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,} \PY{n}{return\PYZus{}sequences}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{input\PYZus{}shape} \PY{o}{=} \PY{p}{(}\PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} \PY{p}{)} \PY{p}{)}\PY{p}{)}
+          \PY{n}{regressor}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dropout}\PY{p}{(}\PY{l+m+mf}{0.2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{regressor}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{LSTM}\PY{p}{(}\PY{n}{units}\PY{o}{=} \PY{l+m+mi}{30} \PY{p}{,} \PY{n}{return\PYZus{}sequences}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{)}
+          \PY{n}{regressor}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dropout}\PY{p}{(}\PY{l+m+mf}{0.2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{regressor}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{LSTM}\PY{p}{(}\PY{n}{units}\PY{o}{=} \PY{l+m+mi}{30} \PY{p}{,} \PY{n}{return\PYZus{}sequences}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{)}
+          \PY{n}{regressor}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dropout}\PY{p}{(}\PY{l+m+mf}{0.2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{regressor}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{LSTM}\PY{p}{(}\PY{n}{units}\PY{o}{=} \PY{l+m+mi}{30}\PY{p}{)}\PY{p}{)}
+          \PY{n}{regressor}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dropout}\PY{p}{(}\PY{l+m+mf}{0.2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{regressor}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{units} \PY{o}{=} \PY{n}{n\PYZus{}future}\PY{p}{,}\PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{regressor}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{regressor}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{,}\PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{32} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 1/500
+11/11 [==============================] - 0s 35ms/step - loss: 0.1459 - acc: 0.0030
+Epoch 2/500
+11/11 [==============================] - 0s 30ms/step - loss: 0.0399 - acc: 0.0030
+Epoch 3/500
+11/11 [==============================] - 0s 30ms/step - loss: 0.0285 - acc: 0.0030
+Epoch 4/500
+11/11 [==============================] - 0s 30ms/step - loss: 0.0255 - acc: 0.0030
+Epoch 5/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0257 - acc: 0.0030
+Epoch 6/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0223 - acc: 0.0030
+Epoch 7/500
+11/11 [==============================] - 0s 30ms/step - loss: 0.0202 - acc: 0.0030
+Epoch 8/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0192 - acc: 0.0030
+Epoch 9/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0191 - acc: 0.0030
+Epoch 10/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0196 - acc: 0.0030
+Epoch 11/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0200 - acc: 0.0030
+Epoch 12/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0179 - acc: 0.0030
+Epoch 13/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0186 - acc: 0.0030
+Epoch 14/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0175 - acc: 0.0030
+Epoch 15/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0190 - acc: 0.0030
+Epoch 16/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0192 - acc: 0.0030
+Epoch 17/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0175 - acc: 0.0030
+Epoch 18/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0175 - acc: 0.0030
+Epoch 19/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0178 - acc: 0.0030
+Epoch 20/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0178 - acc: 0.0030
+Epoch 21/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0155 - acc: 0.0030
+Epoch 22/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0173 - acc: 0.0030
+Epoch 23/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0178 - acc: 0.0030
+Epoch 24/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0173 - acc: 0.0030
+Epoch 25/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0159 - acc: 0.0030
+Epoch 26/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0179 - acc: 0.0030
+Epoch 27/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0171 - acc: 0.0030
+Epoch 28/500
+11/11 [==============================] - 0s 34ms/step - loss: 0.0164 - acc: 0.0030
+Epoch 29/500
+11/11 [==============================] - 0s 31ms/step - loss: 0.0155 - acc: 0.0030
+Epoch 30/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0143 - acc: 0.0030
+Epoch 31/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0162 - acc: 0.0030
+Epoch 32/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0154 - acc: 0.0030
+Epoch 33/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0166 - acc: 0.0030
+Epoch 34/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0154 - acc: 0.0030
+Epoch 35/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0149 - acc: 0.0030
+Epoch 36/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0164 - acc: 0.0030
+Epoch 37/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0138 - acc: 0.0030
+Epoch 38/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0153 - acc: 0.0030
+Epoch 39/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0141 - acc: 0.0030
+Epoch 40/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0141 - acc: 0.0030
+Epoch 41/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0143 - acc: 0.0030
+Epoch 42/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0133 - acc: 0.0030
+Epoch 43/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0138 - acc: 0.0030
+Epoch 44/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0145 - acc: 0.0030
+Epoch 45/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0151 - acc: 0.0030
+Epoch 46/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0135 - acc: 0.0030
+Epoch 47/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0132 - acc: 0.0030
+Epoch 48/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0139 - acc: 0.0030
+Epoch 49/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0148 - acc: 0.0030
+Epoch 50/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0142 - acc: 0.0030
+Epoch 51/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0158 - acc: 0.0030
+Epoch 52/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0170 - acc: 0.0030
+Epoch 53/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0148 - acc: 0.0030
+Epoch 54/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0159 - acc: 0.0030
+Epoch 55/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0145 - acc: 0.0030
+Epoch 56/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0144 - acc: 0.0030
+Epoch 57/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0136 - acc: 0.0030
+Epoch 58/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0136 - acc: 0.0030
+Epoch 59/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0136 - acc: 0.0030
+Epoch 60/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0147 - acc: 0.0030
+Epoch 61/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0145 - acc: 0.0030
+Epoch 62/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0144 - acc: 0.0030
+Epoch 63/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0135 - acc: 0.0030
+Epoch 64/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0124 - acc: 0.0030
+Epoch 65/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0121 - acc: 0.0030
+Epoch 66/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0141 - acc: 0.0030
+Epoch 67/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0139 - acc: 0.0030
+Epoch 68/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0147 - acc: 0.0030
+Epoch 69/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0129 - acc: 0.0030
+Epoch 70/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0145 - acc: 0.0030
+Epoch 71/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0134 - acc: 0.0030
+Epoch 72/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0138 - acc: 0.0030
+Epoch 73/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0129 - acc: 0.0030
+Epoch 74/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0124 - acc: 0.0030
+Epoch 75/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0133 - acc: 0.0030
+Epoch 76/500
+11/11 [==============================] - 0s 30ms/step - loss: 0.0121 - acc: 0.0030
+Epoch 77/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0139 - acc: 0.0030
+Epoch 78/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0132 - acc: 0.0030
+Epoch 79/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0126 - acc: 0.0030
+Epoch 80/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0135 - acc: 0.0030
+Epoch 81/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0121 - acc: 0.0030
+Epoch 82/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0128 - acc: 0.0030
+Epoch 83/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0130 - acc: 0.0030
+Epoch 84/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0124 - acc: 0.0030
+Epoch 85/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0120 - acc: 0.0030
+Epoch 86/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0139 - acc: 0.0030
+Epoch 87/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0126 - acc: 0.0030
+Epoch 88/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0124 - acc: 0.0030
+Epoch 89/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0125 - acc: 0.0030
+Epoch 90/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0129 - acc: 0.0030
+Epoch 91/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0126 - acc: 0.0030
+Epoch 92/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0128 - acc: 0.0030
+Epoch 93/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0128 - acc: 0.0030
+Epoch 94/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0125 - acc: 0.0030
+Epoch 95/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0135 - acc: 0.0030
+Epoch 96/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0117 - acc: 0.0030
+Epoch 97/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0134 - acc: 0.0030
+Epoch 98/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0127 - acc: 0.0030
+Epoch 99/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0126 - acc: 0.0030
+Epoch 100/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0127 - acc: 0.0030
+Epoch 101/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0123 - acc: 0.0030
+Epoch 102/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0115 - acc: 0.0030
+Epoch 103/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0122 - acc: 0.0030
+Epoch 104/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0148 - acc: 0.0030
+Epoch 105/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0127 - acc: 0.0030
+Epoch 106/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0121 - acc: 0.0030
+Epoch 107/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0125 - acc: 0.0030
+Epoch 108/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0118 - acc: 0.0030
+Epoch 109/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0120 - acc: 0.0030
+Epoch 110/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0131 - acc: 0.0030
+Epoch 111/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0118 - acc: 0.0030
+Epoch 112/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0131 - acc: 0.0030
+Epoch 113/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0117 - acc: 0.0030
+Epoch 114/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0123 - acc: 0.0030
+Epoch 115/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0126 - acc: 0.0030
+Epoch 116/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0126 - acc: 0.0030
+Epoch 117/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0130 - acc: 0.0030
+Epoch 118/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0127 - acc: 0.0030
+Epoch 119/500
+11/11 [==============================] - 0s 30ms/step - loss: 0.0113 - acc: 0.0030
+Epoch 120/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0125 - acc: 0.0030
+Epoch 121/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0124 - acc: 0.0030
+Epoch 122/500
+11/11 [==============================] - 0s 32ms/step - loss: 0.0121 - acc: 0.0030
+Epoch 123/500
+11/11 [==============================] - 0s 31ms/step - loss: 0.0135 - acc: 0.0030
+Epoch 124/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0117 - acc: 0.0030
+Epoch 125/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0124 - acc: 0.0030
+Epoch 126/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0122 - acc: 0.0030
+Epoch 127/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0118 - acc: 0.0030
+Epoch 128/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0120 - acc: 0.0030
+Epoch 129/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0109 - acc: 0.0030
+Epoch 130/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0110 - acc: 0.0030
+Epoch 131/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0108 - acc: 0.0030
+Epoch 132/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0114 - acc: 0.0030
+Epoch 133/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0134 - acc: 0.0030
+Epoch 134/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0129 - acc: 0.0030
+Epoch 135/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0126 - acc: 0.0030
+Epoch 136/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0122 - acc: 0.0030
+Epoch 137/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0109 - acc: 0.0030
+Epoch 138/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0123 - acc: 0.0030
+Epoch 139/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0134 - acc: 0.0030
+Epoch 140/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0109 - acc: 0.0030
+Epoch 141/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0111 - acc: 0.0030
+Epoch 142/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0115 - acc: 0.0030
+Epoch 143/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0122 - acc: 0.0030
+Epoch 144/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0117 - acc: 0.0030
+Epoch 145/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0122 - acc: 0.0030
+Epoch 146/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0117 - acc: 0.0030
+Epoch 147/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0100 - acc: 0.0030
+Epoch 148/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0113 - acc: 0.0030
+Epoch 149/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0113 - acc: 0.0030
+Epoch 150/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0113 - acc: 0.0030
+Epoch 151/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0113 - acc: 0.0030
+Epoch 152/500
+11/11 [==============================] - 0s 31ms/step - loss: 0.0122 - acc: 0.0030
+Epoch 153/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0107 - acc: 0.0030
+Epoch 154/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0110 - acc: 0.0030
+Epoch 155/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0104 - acc: 0.0030
+Epoch 156/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0113 - acc: 0.0030
+Epoch 157/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0121 - acc: 0.0030
+Epoch 158/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0112 - acc: 0.0030
+Epoch 159/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0104 - acc: 0.0030
+Epoch 160/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0107 - acc: 0.0030
+Epoch 161/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0115 - acc: 0.0030
+Epoch 162/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0124 - acc: 0.0030
+Epoch 163/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0118 - acc: 0.0030
+Epoch 164/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0099 - acc: 0.0030
+Epoch 165/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0114 - acc: 0.0030
+Epoch 166/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0116 - acc: 0.0030
+Epoch 167/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0120 - acc: 0.0030
+Epoch 168/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0107 - acc: 0.0030
+Epoch 169/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0107 - acc: 0.0030
+Epoch 170/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0118 - acc: 0.0030
+Epoch 171/500
+11/11 [==============================] - 0s 31ms/step - loss: 0.0113 - acc: 0.0030
+Epoch 172/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0113 - acc: 0.0030
+Epoch 173/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0113 - acc: 0.0030
+Epoch 174/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0121 - acc: 0.0030
+Epoch 175/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0109 - acc: 0.0030
+Epoch 176/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0113 - acc: 0.0030
+Epoch 177/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0110 - acc: 0.0030
+Epoch 178/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0106 - acc: 0.0030
+Epoch 179/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0108 - acc: 0.0030
+Epoch 180/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0116 - acc: 0.0030
+Epoch 181/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0116 - acc: 0.0030
+Epoch 182/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0119 - acc: 0.0030
+Epoch 183/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0111 - acc: 0.0030
+Epoch 184/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0120 - acc: 0.0030
+Epoch 185/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0122 - acc: 0.0030
+Epoch 186/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0119 - acc: 0.0030
+Epoch 187/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0109 - acc: 0.0030
+Epoch 188/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0108 - acc: 0.0030
+Epoch 189/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0113 - acc: 0.0030
+Epoch 190/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0112 - acc: 0.0030
+Epoch 191/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0116 - acc: 0.0030
+Epoch 192/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0130 - acc: 0.0030
+Epoch 193/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0111 - acc: 0.0030
+Epoch 194/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0116 - acc: 0.0030
+Epoch 195/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0107 - acc: 0.0030
+Epoch 196/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0106 - acc: 0.0030
+Epoch 197/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0116 - acc: 0.0030
+Epoch 198/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0114 - acc: 0.0030
+Epoch 199/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0106 - acc: 0.0030
+Epoch 200/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0114 - acc: 0.0030
+Epoch 201/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0113 - acc: 0.0030
+Epoch 202/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0112 - acc: 0.0030
+Epoch 203/500
+11/11 [==============================] - 0s 30ms/step - loss: 0.0108 - acc: 0.0030
+Epoch 204/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0104 - acc: 0.0030
+Epoch 205/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0108 - acc: 0.0030
+Epoch 206/500
+11/11 [==============================] - 0s 30ms/step - loss: 0.0099 - acc: 0.0030
+Epoch 207/500
+11/11 [==============================] - 0s 30ms/step - loss: 0.0109 - acc: 0.0030
+Epoch 208/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0104 - acc: 0.0030
+Epoch 209/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0099 - acc: 0.0030
+Epoch 210/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0102 - acc: 0.0030
+Epoch 211/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0099 - acc: 0.0030
+Epoch 212/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0106 - acc: 0.0030
+Epoch 213/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0107 - acc: 0.0030
+Epoch 214/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0105 - acc: 0.0030
+Epoch 215/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0111 - acc: 0.0030
+Epoch 216/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0108 - acc: 0.0030
+Epoch 217/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0108 - acc: 0.0030
+Epoch 218/500
+11/11 [==============================] - 0s 30ms/step - loss: 0.0108 - acc: 0.0030
+Epoch 219/500
+11/11 [==============================] - 0s 33ms/step - loss: 0.0108 - acc: 0.0030
+Epoch 220/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0098 - acc: 0.0030
+Epoch 221/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0105 - acc: 0.0030
+Epoch 222/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0099 - acc: 0.0030
+Epoch 223/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0111 - acc: 0.0030
+Epoch 224/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0112 - acc: 0.0030
+Epoch 225/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0108 - acc: 0.0030
+Epoch 226/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0103 - acc: 0.0030
+Epoch 227/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0102 - acc: 0.0030
+Epoch 228/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0102 - acc: 0.0030
+Epoch 229/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0100 - acc: 0.0030
+Epoch 230/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0106 - acc: 0.0030
+Epoch 231/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0113 - acc: 0.0030
+Epoch 232/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0108 - acc: 0.0030
+Epoch 233/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0103 - acc: 0.0030
+Epoch 234/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0107 - acc: 0.0030
+Epoch 235/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0112 - acc: 0.0030
+Epoch 236/500
+11/11 [==============================] - 0s 31ms/step - loss: 0.0107 - acc: 0.0030
+Epoch 237/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0104 - acc: 0.0030
+Epoch 238/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0104 - acc: 0.0030
+Epoch 239/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0103 - acc: 0.0030
+Epoch 240/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0098 - acc: 0.0030
+Epoch 241/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0100 - acc: 0.0030
+Epoch 242/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0105 - acc: 0.0030
+Epoch 243/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0108 - acc: 0.0030
+Epoch 244/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0105 - acc: 0.0030
+Epoch 245/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0107 - acc: 0.0030
+Epoch 246/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0107 - acc: 0.0030
+Epoch 247/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0099 - acc: 0.0030
+Epoch 248/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0104 - acc: 0.0030
+Epoch 249/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0105 - acc: 0.0030
+Epoch 250/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0112 - acc: 0.0030
+Epoch 251/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0100 - acc: 0.0030
+Epoch 252/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0107 - acc: 0.0030
+Epoch 253/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0102 - acc: 0.0030
+Epoch 254/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0098 - acc: 0.0030
+Epoch 255/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0100 - acc: 0.0030
+Epoch 256/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0102 - acc: 0.0030
+Epoch 257/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0109 - acc: 0.0030
+Epoch 258/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0103 - acc: 0.0030
+Epoch 259/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0106 - acc: 0.0030
+Epoch 260/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0097 - acc: 0.0030
+Epoch 261/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0107 - acc: 0.0030
+Epoch 262/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0109 - acc: 0.0030
+Epoch 263/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0097 - acc: 0.0030
+Epoch 264/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0100 - acc: 0.0030
+Epoch 265/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0101 - acc: 0.0030
+Epoch 266/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0097 - acc: 0.0030
+Epoch 267/500
+11/11 [==============================] - 0s 31ms/step - loss: 0.0108 - acc: 0.0030
+Epoch 268/500
+11/11 [==============================] - 0s 31ms/step - loss: 0.0103 - acc: 0.0030
+Epoch 269/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0104 - acc: 0.0030
+Epoch 270/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0107 - acc: 0.0030
+Epoch 271/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0102 - acc: 0.0030
+Epoch 272/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0100 - acc: 0.0030
+Epoch 273/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0099 - acc: 0.0030
+Epoch 274/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0098 - acc: 0.0030
+Epoch 275/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0098 - acc: 0.0030
+Epoch 276/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0104 - acc: 0.0030
+Epoch 277/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0100 - acc: 0.0030
+Epoch 278/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0103 - acc: 0.0030
+Epoch 279/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0104 - acc: 0.0030
+Epoch 280/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0100 - acc: 0.0030
+Epoch 281/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0094 - acc: 0.0030
+Epoch 282/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0096 - acc: 0.0030
+Epoch 283/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0096 - acc: 0.0030
+Epoch 284/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0096 - acc: 0.0030
+Epoch 285/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0099 - acc: 0.0030
+Epoch 286/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0096 - acc: 0.0030
+Epoch 287/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0113 - acc: 0.0030
+Epoch 288/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0117 - acc: 0.0030
+Epoch 289/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0110 - acc: 0.0030
+Epoch 290/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0100 - acc: 0.0030
+Epoch 291/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0105 - acc: 0.0030
+Epoch 292/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0099 - acc: 0.0030
+Epoch 293/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0097 - acc: 0.0030
+Epoch 294/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0093 - acc: 0.0030
+Epoch 295/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0097 - acc: 0.0030
+Epoch 296/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0106 - acc: 0.0030
+Epoch 297/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0108 - acc: 0.0030
+Epoch 298/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0104 - acc: 0.0030
+Epoch 299/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0107 - acc: 0.0030
+Epoch 300/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0105 - acc: 0.0030
+Epoch 301/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0099 - acc: 0.0030
+Epoch 302/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0103 - acc: 0.0030
+Epoch 303/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0097 - acc: 0.0030
+Epoch 304/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0092 - acc: 0.0030
+Epoch 305/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0099 - acc: 0.0030
+Epoch 306/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0102 - acc: 0.0030
+Epoch 307/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0094 - acc: 0.0030
+Epoch 308/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0099 - acc: 0.0030
+Epoch 309/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0091 - acc: 0.0030
+Epoch 310/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0100 - acc: 0.0030
+Epoch 311/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0106 - acc: 0.0030
+Epoch 312/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0096 - acc: 0.0030
+Epoch 313/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0100 - acc: 0.0030
+Epoch 314/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0103 - acc: 0.0030
+Epoch 315/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0094 - acc: 0.0030
+Epoch 316/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0104 - acc: 0.0030
+Epoch 317/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0093 - acc: 0.0030
+Epoch 318/500
+11/11 [==============================] - 0s 30ms/step - loss: 0.0099 - acc: 0.0030
+Epoch 319/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0093 - acc: 0.0030
+Epoch 320/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0109 - acc: 0.0030
+Epoch 321/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0096 - acc: 0.0030
+Epoch 322/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0098 - acc: 0.0030
+Epoch 323/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0099 - acc: 0.0030
+Epoch 324/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0092 - acc: 0.0030
+Epoch 325/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0097 - acc: 0.0030
+Epoch 326/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0094 - acc: 0.0030
+Epoch 327/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0093 - acc: 0.0030
+Epoch 328/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0092 - acc: 0.0030
+Epoch 329/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0098 - acc: 0.0030
+Epoch 330/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0090 - acc: 0.0030
+Epoch 331/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0097 - acc: 0.0030
+Epoch 332/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0094 - acc: 0.0030
+Epoch 333/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0095 - acc: 0.0030
+Epoch 334/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0094 - acc: 0.0030
+Epoch 335/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0098 - acc: 0.0030
+Epoch 336/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0096 - acc: 0.0030
+Epoch 337/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0090 - acc: 0.0030
+Epoch 338/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0095 - acc: 0.0030
+Epoch 339/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0100 - acc: 0.0030
+Epoch 340/500
+11/11 [==============================] - 0s 31ms/step - loss: 0.0097 - acc: 0.0030
+Epoch 341/500
+11/11 [==============================] - 0s 31ms/step - loss: 0.0098 - acc: 0.0030
+Epoch 342/500
+11/11 [==============================] - 0s 31ms/step - loss: 0.0097 - acc: 0.0030
+Epoch 343/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0098 - acc: 0.0030
+Epoch 344/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0092 - acc: 0.0030
+Epoch 345/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0102 - acc: 0.0030
+Epoch 346/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0102 - acc: 0.0030
+Epoch 347/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0098 - acc: 0.0030
+Epoch 348/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0095 - acc: 0.0030
+Epoch 349/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0095 - acc: 0.0030
+Epoch 350/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0100 - acc: 0.0030
+Epoch 351/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0102 - acc: 0.0030
+Epoch 352/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0100 - acc: 0.0030
+Epoch 353/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0090 - acc: 0.0030
+Epoch 354/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0097 - acc: 0.0030
+Epoch 355/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0091 - acc: 0.0030
+Epoch 356/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0093 - acc: 0.0030
+Epoch 357/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0092 - acc: 0.0030
+Epoch 358/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0093 - acc: 0.0030
+Epoch 359/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0092 - acc: 0.0030
+Epoch 360/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0100 - acc: 0.0030
+Epoch 361/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0092 - acc: 0.0030
+Epoch 362/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0102 - acc: 0.0030
+Epoch 363/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0093 - acc: 0.0030
+Epoch 364/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0091 - acc: 0.0030
+Epoch 365/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0103 - acc: 0.0030
+Epoch 366/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0091 - acc: 0.0030
+Epoch 367/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0097 - acc: 0.0030
+Epoch 368/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0097 - acc: 0.0030
+Epoch 369/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0097 - acc: 0.0030
+Epoch 370/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0097 - acc: 0.0030
+Epoch 371/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0092 - acc: 0.0030
+Epoch 372/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0101 - acc: 0.0030
+Epoch 373/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0090 - acc: 0.0030
+Epoch 374/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0093 - acc: 0.0030
+Epoch 375/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0093 - acc: 0.0030
+Epoch 376/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0088 - acc: 0.0030
+Epoch 377/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0096 - acc: 0.0030
+Epoch 378/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0094 - acc: 0.0030
+Epoch 379/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0100 - acc: 0.0030
+Epoch 380/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0098 - acc: 0.0030
+Epoch 381/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0095 - acc: 0.0030
+Epoch 382/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0097 - acc: 0.0030
+Epoch 383/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0100 - acc: 0.0030
+Epoch 384/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0096 - acc: 0.0030
+Epoch 385/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0089 - acc: 0.0030
+Epoch 386/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0094 - acc: 0.0030
+Epoch 387/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0090 - acc: 0.0030
+Epoch 388/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0091 - acc: 0.0030
+Epoch 389/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0089 - acc: 0.0030
+Epoch 390/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0090 - acc: 0.0030
+Epoch 391/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0091 - acc: 0.0030
+Epoch 392/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0090 - acc: 0.0030
+Epoch 393/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0090 - acc: 0.0030
+Epoch 394/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0095 - acc: 0.0030
+Epoch 395/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0099 - acc: 0.0030
+Epoch 396/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0089 - acc: 0.0030
+Epoch 397/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0094 - acc: 0.0030
+Epoch 398/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0098 - acc: 0.0030
+Epoch 399/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0091 - acc: 0.0030
+Epoch 400/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0092 - acc: 0.0030
+Epoch 401/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0090 - acc: 0.0030
+Epoch 402/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0088 - acc: 0.0030
+Epoch 403/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0093 - acc: 0.0030
+Epoch 404/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0094 - acc: 0.0030
+Epoch 405/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0095 - acc: 0.0030
+Epoch 406/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0093 - acc: 0.0030
+Epoch 407/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0089 - acc: 0.0030
+Epoch 408/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0094 - acc: 0.0030
+Epoch 409/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0090 - acc: 0.0030
+Epoch 410/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0098 - acc: 0.0030
+Epoch 411/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0093 - acc: 0.0030
+Epoch 412/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0094 - acc: 0.0030
+Epoch 413/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0090 - acc: 0.0030
+Epoch 414/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0087 - acc: 0.0030
+Epoch 415/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0094 - acc: 0.0030
+Epoch 416/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0092 - acc: 0.0030
+Epoch 417/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0092 - acc: 0.0030
+Epoch 418/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0092 - acc: 0.0030
+Epoch 419/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0093 - acc: 0.0030
+Epoch 420/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0098 - acc: 0.0030
+Epoch 421/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0086 - acc: 0.0030
+Epoch 422/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0096 - acc: 0.0030
+Epoch 423/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0092 - acc: 0.0030
+Epoch 424/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0098 - acc: 0.0030
+Epoch 425/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0091 - acc: 0.0030
+Epoch 426/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0091 - acc: 0.0030
+Epoch 427/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0091 - acc: 0.0030
+Epoch 428/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0089 - acc: 0.0030
+Epoch 429/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0095 - acc: 0.0030
+Epoch 430/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0093 - acc: 0.0030
+Epoch 431/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0089 - acc: 0.0030
+Epoch 432/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0095 - acc: 0.0030
+Epoch 433/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0102 - acc: 0.0030
+Epoch 434/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0096 - acc: 0.0030
+Epoch 435/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0090 - acc: 0.0030
+Epoch 436/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0091 - acc: 0.0030
+Epoch 437/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0090 - acc: 0.0030
+Epoch 438/500
+11/11 [==============================] - 0s 31ms/step - loss: 0.0089 - acc: 0.0030
+Epoch 439/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0091 - acc: 0.0030
+Epoch 440/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0096 - acc: 0.0030
+Epoch 441/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0084 - acc: 0.0030
+Epoch 442/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0089 - acc: 0.0030
+Epoch 443/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0083 - acc: 0.0030
+Epoch 444/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0087 - acc: 0.0030
+Epoch 445/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0093 - acc: 0.0030
+Epoch 446/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0089 - acc: 0.0030
+Epoch 447/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0085 - acc: 0.0030
+Epoch 448/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0088 - acc: 0.0030
+Epoch 449/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0092 - acc: 0.0030
+Epoch 450/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0088 - acc: 0.0030
+Epoch 451/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0085 - acc: 0.0030
+Epoch 452/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0093 - acc: 0.0030
+Epoch 453/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0089 - acc: 0.0030
+Epoch 454/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0091 - acc: 0.0030
+Epoch 455/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0090 - acc: 0.0030
+Epoch 456/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0089 - acc: 0.0030
+Epoch 457/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0085 - acc: 0.0030
+Epoch 458/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0085 - acc: 0.0030
+Epoch 459/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0086 - acc: 0.0030
+Epoch 460/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0085 - acc: 0.0030
+Epoch 461/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0091 - acc: 0.0030
+Epoch 462/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0084 - acc: 0.0030
+Epoch 463/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0093 - acc: 0.0030
+Epoch 464/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0092 - acc: 0.0030
+Epoch 465/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0089 - acc: 0.0030
+Epoch 466/500
+11/11 [==============================] - 0s 29ms/step - loss: 0.0085 - acc: 0.0030
+Epoch 467/500
+11/11 [==============================] - 0s 28ms/step - loss: 0.0084 - acc: 0.0030
+Epoch 468/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0095 - acc: 0.0030
+Epoch 469/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0087 - acc: 0.0030
+Epoch 470/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0087 - acc: 0.0030
+Epoch 471/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0089 - acc: 0.0030
+Epoch 472/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0090 - acc: 0.0030
+Epoch 473/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0085 - acc: 0.0030
+Epoch 474/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0086 - acc: 0.0030
+Epoch 475/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0094 - acc: 0.0030
+Epoch 476/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0093 - acc: 0.0030
+Epoch 477/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0082 - acc: 0.0030
+Epoch 478/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0086 - acc: 0.0030
+Epoch 479/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0092 - acc: 0.0030
+Epoch 480/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0092 - acc: 0.0030
+Epoch 481/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0093 - acc: 0.0030
+Epoch 482/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0084 - acc: 0.0030
+Epoch 483/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0084 - acc: 0.0030
+Epoch 484/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0085 - acc: 0.0030
+Epoch 485/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0081 - acc: 0.0030
+Epoch 486/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0088 - acc: 0.0030
+Epoch 487/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0081 - acc: 0.0030
+Epoch 488/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0089 - acc: 0.0030
+Epoch 489/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0088 - acc: 0.0030
+Epoch 490/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0085 - acc: 0.0030
+Epoch 491/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0082 - acc: 0.0030
+Epoch 492/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0087 - acc: 0.0030
+Epoch 493/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0092 - acc: 0.0030
+Epoch 494/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0087 - acc: 0.0030
+Epoch 495/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0081 - acc: 0.0030
+Epoch 496/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0081 - acc: 0.0030
+Epoch 497/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0085 - acc: 0.0030
+Epoch 498/500
+11/11 [==============================] - 0s 27ms/step - loss: 0.0086 - acc: 0.0030
+Epoch 499/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0080 - acc: 0.0030
+Epoch 500/500
+11/11 [==============================] - 0s 26ms/step - loss: 0.0082 - acc: 0.0030
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}236}]:} <tensorflow.python.keras.callbacks.History at 0x13a2a2dfa60>
+\end{Verbatim}
+            
+    \subsubsection{4.3 Test and Evaluate}\label{test-and-evaluate}
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Evaluate performance with single step prediction of Tempreture on the
+  31th day of 2019
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}276}]:} \PY{c+c1}{\PYZsh{} Plot single step prediction}
+          \PY{c+c1}{\PYZsh{} Modified from: Team, K. (n.d.). Keras documentation: Timeseries forecasting for weather prediction. Keras. https://keras.io/examples/timeseries/timeseries\PYZus{}weather\PYZus{}forecasting/. }
+          \PY{k}{def} \PY{n+nf}{show\PYZus{}plot}\PY{p}{(}\PY{n}{plot\PYZus{}data}\PY{p}{,} \PY{n}{delta}\PY{p}{,} \PY{n}{title}\PY{p}{)}\PY{p}{:}
+              \PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{History}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{True Future}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Model Prediction}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+              \PY{n}{marker} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rx}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{go}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+              \PY{n}{time\PYZus{}steps} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{plot\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+              \PY{k}{if} \PY{n}{delta}\PY{p}{:}
+                  \PY{n}{future} \PY{o}{=} \PY{n}{delta}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{future} \PY{o}{=} \PY{l+m+mi}{0}
+          
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+              \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{val} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{plot\PYZus{}data}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{if} \PY{n}{i}\PY{p}{:}
+                      \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{future}\PY{p}{,} \PY{n}{plot\PYZus{}data}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{marker}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{labels}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{time\PYZus{}steps}\PY{p}{,} \PY{n}{plot\PYZus{}data}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{marker}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{labels}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{n}{time\PYZus{}steps}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{(}\PY{n}{future} \PY{o}{+} \PY{l+m+mi}{5}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time\PYZhy{}Step}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+              \PY{k}{return}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}288}]:} \PY{c+c1}{\PYZsh{} Preprocessing test data}
+          \PY{n}{testdataset} \PY{o}{=} \PY{n}{cur\PYZus{}max\PYZus{}temp}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{31}\PY{p}{]}
+          \PY{n}{testdataset} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{testdataset}\PY{p}{)}
+          \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{n\PYZus{}future} \PY{o}{=} \PY{l+m+mi}{1}
+          \PY{n}{n\PYZus{}past} \PY{o}{=} \PY{l+m+mi}{30}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{testdataset}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{n\PYZus{}past}\PY{o}{\PYZhy{}}\PY{n}{n\PYZus{}future}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+              \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{testdataset}\PY{p}{[}\PY{n}{i} \PY{p}{:} \PY{n}{i} \PY{o}{+} \PY{n}{n\PYZus{}past}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}     
+              \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{testdataset}\PY{p}{[}\PY{n}{i} \PY{o}{+} \PY{n}{n\PYZus{}past} \PY{p}{:} \PY{n}{i} \PY{o}{+} \PY{n}{n\PYZus{}past} \PY{o}{+} \PY{n}{n\PYZus{}future}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{x\PYZus{}test} \PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}
+          \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{p}{(}\PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{p}{,} \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}299}]:} \PY{n}{show\PYZus{}plot}\PY{p}{(}
+                  \PY{p}{[}\PY{n}{x\PYZus{}test}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{regressor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+                  \PY{l+m+mi}{12}\PY{p}{,}
+                  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Single Step Prediction}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+              \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_57_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Evaluate performance with 2019-2020 test set
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}300}]:} \PY{c+c1}{\PYZsh{} Preprocessing test data}
+          \PY{n}{testdataset} \PY{o}{=} \PY{n}{cur\PYZus{}max\PYZus{}temp}
+          \PY{n}{testdataset} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{testdataset}\PY{p}{)}
+          \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{n\PYZus{}future} \PY{o}{=} \PY{l+m+mi}{1}
+          \PY{n}{n\PYZus{}past} \PY{o}{=} \PY{l+m+mi}{30}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{testdataset}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{n\PYZus{}past}\PY{o}{\PYZhy{}}\PY{n}{n\PYZus{}future}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+              \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{testdataset}\PY{p}{[}\PY{n}{i} \PY{p}{:} \PY{n}{i} \PY{o}{+} \PY{n}{n\PYZus{}past}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}     
+              \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{testdataset}\PY{p}{[}\PY{n}{i} \PY{o}{+} \PY{n}{n\PYZus{}past} \PY{p}{:} \PY{n}{i} \PY{o}{+} \PY{n}{n\PYZus{}past} \PY{o}{+} \PY{n}{n\PYZus{}future}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{x\PYZus{}test} \PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}
+          \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{p}{(}\PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{p}{,} \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}301}]:} \PY{c+c1}{\PYZsh{} Making prediction and evaluation}
+          \PY{n}{pred\PYZus{}30} \PY{o}{=} \PY{n}{regressor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+          \PY{n}{pred\PYZus{}30} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{inverse\PYZus{}transform}\PY{p}{(}\PY{n}{pred\PYZus{}30}\PY{p}{)}
+          \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{inverse\PYZus{}transform}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}
+          \PY{n}{mse} \PY{o}{=} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{pred\PYZus{}30}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE for Tempreture Prediction using LSTM: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mse}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{true}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{pred\PYZus{}30}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pred}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tempreture(K)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day of the year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LSTM prediction on 2019\PYZhy{}2020 Data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MSE for Tempreture Prediction using LSTM:  14.898463512340081
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_60_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Evaluate performance with 2020-2021 test set
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}302}]:} \PY{c+c1}{\PYZsh{} Preprocessing test set}
+          \PY{n}{testdataset} \PY{o}{=} \PY{n}{future\PYZus{}max\PYZus{}temp}
+          \PY{n}{testdataset} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{testdataset}\PY{p}{)}
+          \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{n\PYZus{}future} \PY{o}{=} \PY{l+m+mi}{1}
+          \PY{n}{n\PYZus{}past} \PY{o}{=} \PY{l+m+mi}{30}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{testdataset}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{n\PYZus{}past}\PY{o}{\PYZhy{}}\PY{n}{n\PYZus{}future}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+              \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{testdataset}\PY{p}{[}\PY{n}{i} \PY{p}{:} \PY{n}{i} \PY{o}{+} \PY{n}{n\PYZus{}past}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}     
+              \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{testdataset}\PY{p}{[}\PY{n}{i} \PY{o}{+} \PY{n}{n\PYZus{}past} \PY{p}{:} \PY{n}{i} \PY{o}{+} \PY{n}{n\PYZus{}past} \PY{o}{+} \PY{n}{n\PYZus{}future}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{x\PYZus{}test} \PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}
+          \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{p}{(}\PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{p}{,} \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}303}]:} \PY{c+c1}{\PYZsh{} Making prediction and evaluation}
+          \PY{n}{pred\PYZus{}2021} \PY{o}{=} \PY{n}{regressor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+          \PY{n}{pred\PYZus{}2021} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{inverse\PYZus{}transform}\PY{p}{(}\PY{n}{pred\PYZus{}2021}\PY{p}{)}
+          \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{inverse\PYZus{}transform}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}
+          \PY{n}{mse} \PY{o}{=} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{pred\PYZus{}2021}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE for Tempreture Prediction using LSTM: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mse}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{true}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{pred\PYZus{}2021}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pred}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tempreture(K)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day of the year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LSTM prediction on 2020\PYZhy{}2021 Data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MSE for Tempreture Prediction using LSTM:  16.6580981560278
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_63_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{References:}\label{references}
+
+Kosandal, R. (2020, January 5). Weather forecasting with Recurrent
+Neural Networks. Medium.
+https://medium.com/analytics-vidhya/weather-forecasting-with-recurrent-neural-networks-1eaa057d70c3.
+Team, K. (n.d.). Keras documentation: Timeseries forecasting for weather
+prediction. Keras.
+https://keras.io/examples/timeseries/timeseries\_weather\_forecasting/.
+Fatmakursun. (2020, January 28). Rain Forecasting with Artificial Neural
+Network. Kaggle.
+https://www.kaggle.com/fatmakursun/rain-forecasting-with-artificial-neural-network.
+Pietro, M. D. (2020, December 8). Machine Learning with Python:
+Regression. Medium.
+https://towardsdatascience.com/machine-learning-with-python-regression-complete-tutorial-47268e546cea.
+Paialunga, P. (2021, April 18). Weather forecasting with Machine
+Learning, using Python. Medium.
+https://towardsdatascience.com/weather-forecasting-with-machine-learning-using-python-55e90c346647.
+Gabriel, L. (2019, April 29). A Beginner's Guide on Recurrent Neural
+Networks with PyTorch. FloydHub.
+https://blog.floydhub.com/a-beginners-guide-on-recurrent-neural-networks-with-pytorch/
+George, S. (2019, May 20). Understanding the 3 most common loss
+functions for Machine Learning Regression. TowardsDataScience.
+https://towardsdatascience.com/understanding-the-3-most-common-loss-functions-for-machine-learning-regression-23e0ef3e14d3
+Part of the Recurrent Neural Network structure code credits to
+Kristina's project 3 and 4 of CS4740, Fall 2020.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
